@@ -184,7 +184,7 @@ export const finishKakaoLogin = async (req, res) => {
 				},
 			})
 		).json();
-		console.log(userData);
+		//console.log(userData);
 		//res.send(JSON.stringify(userData));
 
 		const kakaoAccount = userData.kakao_account;
@@ -217,7 +217,9 @@ export const finishKakaoLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-	req.session.destroy();
+	req.session.user = null;
+	res.locals.loggedInUser = req.session.user;
+	req.session.loggedIn = false;
 	req.flash("info", "You are logged out");
 	return res.redirect("/");
 };
@@ -235,7 +237,7 @@ export const postEdit = async (req, res) => {
 		file,
 	} = req;
 
-	console.log(file);
+	//console.log(file);
 
 	const usernameExists =
 		username != sessionUsername ? await User.exists({ username }) : undefined;
@@ -258,6 +260,7 @@ export const postEdit = async (req, res) => {
 		},
 		{ new: true }
 	);
+	req.flash("success", "User info Updated");
 	req.session.user = updatedUser;
 	return res.redirect("/users/edit");
 };
