@@ -24,13 +24,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //encoded 가 라우터 전에 선언돼서 포스트 하기 전에 body 를 가져올수 있는것. 그리고 그 body에 있는 form이 자바스크립트 해석될수 있도록 도와주는 middleware가 바로 이것이다!
 
+const SECONDS = 1000;
+const MINUTES = 60 * SECONDS;
+const HOURS = 60 * MINUTES;
+
 app.use(
 	session({
 		secret: process.env.COOKIE_SECRET,
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
-			maxAge: 200000,
+			maxAge: 4 * HOURS,
 		},
 		store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
 	})
