@@ -14,8 +14,9 @@ const addComment = (text, id) => {
 
 	newComment.className = "video__comment";
 	icon.className = "fas fa-comment";
-	span.innerText = ` ${text}`;
-	delete_icon.innerText = " ❌";
+	span.innerText = `${text}`;
+	span.id = "comment";
+	delete_icon.innerText = "❌";
 	delete_icon.id = "deleteComment";
 
 	newComment.appendChild(icon);

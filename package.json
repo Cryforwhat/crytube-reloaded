@@ -7,8 +7,12 @@
     "url": "git+https://github.com/Cryforwhat/crytube-reloaded.git"
   },
   "scripts": {
+    "start": "node build/init.js",
+    "build": "npm run build:server && npm run build:assets",
+    "build:server": "babel src -d build",
+    "build:assets": "webpack --mode=production",
     "dev:server": "nodemon",
-    "dev:assets": "webpack",
+    "dev:assets": "webpack --mode=development -w",
     "db:start": "docker run -d -p 27017:27017 -v ./data:/data/db --name mongodb-container mongo"
   },
   "author": "Chae Rok YEOM",
@@ -34,7 +38,8 @@
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.3",
     "@babel/node": "^7.22.6",
     "@babel/preset-env": "^7.22.9",
     "babel-loader": "^9.1.3",
